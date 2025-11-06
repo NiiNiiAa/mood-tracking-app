@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard | Mood Tracker</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/dashboard.css" />
+</head>
+<body>
+  <header class="header">
+    <h1 class="app-title"> <img src="images/icons/Logo icon.png" alt="icon" class="logo-icon"> Mood Tracker</h1>
+    <button id="logout-btn" class="btn-secondary">Logout</button>
+    <div id="auth-buttons">
+        <a href="signup.html"><button id="login-btn" class="btn-primary">Login</button></a>
+        <a href="login.html"><button id="sign-in-btn" class="btn-primary">Sign In</button> </a>
+        <button id="logout-btn" class="btn-secondary" style="display:none;">Logout</button>
+    </div>
+  </header>
+
+  <main class="dashboard">
+    <section class="welcome-section">
+      <h2>Hello, Lisa!</h2>
+      <p>How are you feeling today?</p>
+      <button id="log-mood-btn" class="btn-primary">Log today's mood</button>
+    </section>
+
+    <section class="stats-section">
+      <div class="stat-card">
+        <h3>Average Mood</h3>
+        <p id="avg-mood">Neutral</p>
+      </div>
+      <div class="stat-card">
+        <h3>Average Sleep</h3>
+        <p id="avg-sleep">7 hours</p>
+      </div>
+    </section>
+
+    <section class="chart-section">
+      <h3>Mood and Sleep Trends</h3>
+      <canvas id="moodChart"></canvas>
+    </section>
+  </main>
+
+  <!-- Mood modal -->
+  <div id="mood-modal" class="modal hidden">
+    <div class="modal-content">
+      <h3>How are you feeling today?</h3>
+      <div class="mood-options">
+        <button class="mood-btn" data-mood="Very Sad">😢</button>
+        <button class="mood-btn" data-mood="Sad">🙁</button>
+        <button class="mood-btn" data-mood="Neutral">😐</button>
+        <button class="mood-btn" data-mood="Happy">😊</button>
+        <button class="mood-btn" data-mood="Very Happy">😁</button>
+      </div>
+      <input type="number" id="sleep-hours" placeholder="How many hours did you sleep?" min="0" max="24" />
+      <button id="save-mood" class="btn-primary">Save</button>
+      <button id="close-modal" class="btn-secondary">Cancel</button>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="js/mood.js"></script>
+</body>
+</html>
