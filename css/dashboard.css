@@ -4,39 +4,196 @@ body {
   background: linear-gradient(135deg, #e8edff, #fafaff);
   color: #333;
 }
-
-.header {
+.header{
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 1.2rem 2rem;
-  background: #fff;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
 }
+.header-main{
+  width: 80%;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 
 .app-title {
-  color: #4c57ff;
-  font-weight: 600;
+    font-weight: 600;
+    color: black;
+    font-size: 18px;
 }
-
+.header a{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  text-decoration: none;
+}
+.header-auth{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+}
 .dashboard {
-  max-width: 900px;
-  margin: 2rem auto;
+  width: 80%;
+  margin: 0 auto;
   padding: 0 1rem;
 }
 
 .welcome-section {
   text-align: center;
-  background: #fff;
-  padding: 2rem;
-  border-radius: 1.5rem;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  /* padding: 2rem; */
+  text-align: center;
 }
 
 .welcome-section h2 {
   color: #4c57ff;
-  margin-bottom: 0.3rem;
+  font-size: 30px;
+  font-weight: 600;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+
 }
+.welcome-quesrtion{
+  font-size: 35px;
+  font-weight: 850;
+  font-family:serif;
+  margin: 2px;
+}
+
+.current-date {
+  font-size: 1rem;
+  color: #666;
+  margin-top: 8px;
+  margin-bottom: 20px;
+}
+
+.stats-and-chart {
+  display: flex;
+  justify-content: space-between;
+  gap: 28px;
+  width: 80%;
+  margin: 50px auto;
+}
+
+/* მარცხენა პანელი */
+.left-panel {
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  /* justify-content: space-between; */
+  text-align: center;
+  background-color: white;
+  padding: 10px;
+}
+
+.stat-box {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  margin-bottom: 12px;
+  align-items: center;
+}
+
+.stat-title {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #1f1f3d;
+}
+
+.stat-title span {
+  font-size: 0.85rem;
+  color: #7a7a9a;
+  font-weight: 400;
+}
+
+.stat-card {
+  background: #f7f7f8;
+  border-radius: 14px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  width: 80%;
+  padding: 32px 24px;
+  text-align: center;
+}
+
+.main-text {
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: #2a2a50;
+  margin-bottom: 0;
+}
+
+.sub-text {
+  font-size: 0.6rem;
+  color: #7b7b7b;
+  line-height: 1.4;
+}
+
+/* გრაფიკი */
+.right-panel {
+  flex: 1;
+  background: #ffffff;
+  border-radius: 14px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  padding: 24px 28px;
+  display: flex;
+  flex-direction: column;
+}
+
+.chart-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #1f1f3d;
+  margin-bottom: 20px;
+}
+
+.chart-wrapper {
+  display: flex;
+  align-items: stretch;
+  height: 100%;
+  gap: 10px;
+}
+
+.y-axis-labels {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: #44446e;
+  font-size: 0.9rem;
+}
+
+.y-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.y-label img {
+  width: 16px;
+  height: 16px;
+  opacity: 0.8;
+}
+
+#moodChart {
+  flex: 1;
+  background: #fafaff;
+  border-radius: 8px;
+}
+
+@media (max-width: 900px) {
+  .stats-and-chart {
+    flex-direction: column;
+    width: 95%;
+  }
+  .left-panel, .right-panel {
+    width: 100%;
+    height: auto;
+  }
+}
+
+
 
 .btn-primary,
 .btn-secondary {
@@ -74,11 +231,10 @@ body {
 }
 
 .stat-card {
-  background: #fff;
+  background: #e0e6f3;
   border-radius: 1rem;
-  padding: 1.5rem;
-  width: 45%;
-  text-align: center;
+  padding: 1.6rem;
+  text-align: start;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
 }
 
@@ -95,44 +251,126 @@ canvas {
 }
 
 .modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.3);
   display: flex;
   justify-content: center;
   align-items: center;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.3);
+  font-family: Arial, sans-serif;
+}
+.modal.active {
+  display: flex;
+}
+
+
+.modal-content {
+  background: #fff;
+  padding: 25px 30px;
+  border-radius: 12px;
+  width: 320px;
+  text-align: center;
+  position: relative;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+.close-btn {
+  position: absolute;
+  right: 15px;
+  top: 10px;
+  background: transparent;
+  border: none;
+  font-size: 22px;
+  cursor: pointer;
+  color: #6b7280;
+}
+
+.close-btn:hover {
+  color: #000;
 }
 
 .hidden {
   display: none;
 }
 
-.modal-content {
-  background: #fff;
-  padding: 2rem;
-  border-radius: 1rem;
-  width: 90%;
-  max-width: 400px;
-  text-align: center;
-}
-
 .mood-options {
   display: flex;
-  justify-content: space-between;
-  margin: 1rem 0;
+  flex-direction: column;
+  gap: 12px;
 }
 
-.mood-btn {
-  font-size: 1.8rem;
-  background: transparent;
-  border: none;
+
+.mood-options label {
+  display: flex;
+  align-items: center;
+  padding: 10px 14px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
   cursor: pointer;
-  transition: transform 0.2s;
+  position: relative;
+  gap: 10px;
 }
 
-.mood-btn:hover {
-  transform: scale(1.2);
+.mood-options input[type="radio"] {
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border: 2px solid #9ca3af;
+  border-radius: 50%;
+  flex-shrink: 0;
+  position: relative;
 }
+.mood-options input[type="radio"]:checked {
+  border-color: #4f46e5;
+}
+.mood-options input[type="radio"]:checked::after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 8px;
+  height: 8px;
+  background: #4f46e5;
+  border-radius: 50%;
+}
+
+.mood-label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex: 1;
+  position: relative; 
+  margin-left: 6px; 
+  gap: 12px;
+}
+
+.mood-label .text {
+  flex: 1;
+  text-align: left;
+  font-size: 16px;
+  color: #374151;
+}
+
+.mood-icones {
+  width: 28px;
+  height: 28px;
+  margin-left: 10px; 
+  flex-shrink: 0;
+}
+
+.mood-options label::after {
+  content: "";
+  position: absolute;
+  right: 48px; 
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1px;
+  height: 60%;
+  background-color: #d1d5db;
+  pointer-events: none;
+}
+
+.mood-options label:hover {
+  border-color: #4f46e5;
+}
+

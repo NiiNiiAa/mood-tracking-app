@@ -1,18 +1,19 @@
-document.getElementById('login-form').addEventListener('submit', function(e) {
+// LOGIN FORM
+document.getElementById('login-form')?.addEventListener('submit', function (e) {
   e.preventDefault();
 
   const email = document.getElementById('email').value;
   const password = document.getElementById('password').value;
 
   if (email && password) {
-    alert(`Welcome back, ${email}!`);
-    window.location.href = "index.html"; 
+    const name = email.split('@')[0]; 
+    localStorage.setItem('currentUser', JSON.stringify({ name, email }));
+    window.location.href = "dashboard.html";
   }
 });
 
-
-// Sign-up ფორმა
-document.getElementById('signup-form')?.addEventListener('submit', function(e) {
+// SIGN-UP FORM
+document.getElementById('signup-form')?.addEventListener('submit', function (e) {
   e.preventDefault();
 
   const name = document.getElementById('name').value;
@@ -20,14 +21,15 @@ document.getElementById('signup-form')?.addEventListener('submit', function(e) {
   const password = document.getElementById('password').value;
 
   if (name && email && password) {
+    localStorage.setItem('registeredUser', JSON.stringify({ name, email, password }));
     alert(`Account created for ${name}!`);
-    window.location.href = "login.html"; 
+    window.location.href = "login.html";
   }
 });
 
 
 
-let currentUser = null; // null means not logged in
+let currentUser = null; 
 
   const loginBtn = document.getElementById('login-btn');
   const signInBtn = document.getElementById('sign-in-btn');
@@ -49,13 +51,11 @@ let currentUser = null; // null means not logged in
   }
 
   loginBtn.addEventListener('click', () => {
-    // Simulate login
-    currentUser = { name: 'Lisa' }; // In real app, get from form/auth
+    currentUser = { name: 'Lisa' }; 
     updateUI();
   });
 
   signInBtn.addEventListener('click', () => {
-    // Simulate sign in / registration
     currentUser = { name: 'John' };
     updateUI();
   });
@@ -65,6 +65,5 @@ let currentUser = null; // null means not logged in
     updateUI();
   });
 
-  // Initial UI update
   updateUI();
 

@@ -70,7 +70,7 @@ input:focus {
 }
 
 .btn-primary {
-  background-color: #4c57ff;
+  background-color: #5a5d86;
   color: #fff;
   border: none;
   padding: 0.9rem;
@@ -80,9 +80,12 @@ input:focus {
   font-size: 1rem;
   transition: 0.2s;
 }
+.btn-primary {
+  background: linear-gradient(135deg, #616ae8, #6f74ff);
+}
 
 .btn-primary:hover {
-  background-color: #3b46e3;
+  background-color: #2c34a9;
 }
 
 .auth-footer {
@@ -101,13 +104,7 @@ input:focus {
   text-decoration: underline;
 }
 
-
-
-/* Sign up სპეციალური მცირე აქცენტი */
 .auth-card h2 {
   color: #444;
 }
 
-.btn-primary {
-  background: linear-gradient(135deg, #4c57ff, #6f74ff);
-}
