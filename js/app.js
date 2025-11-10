@@ -1,69 +1,79 @@
-// LOGIN FORM
-document.getElementById('login-form')?.addEventListener('submit', function (e) {
-  e.preventDefault();
+const BACKEND_URL = 'https://mood-tracking-app-kappa.vercel.app/';
 
-  const email = document.getElementById('email').value;
-  const password = document.getElementById('password').value;
-
-  if (email && password) {
-    const name = email.split('@')[0]; 
-    localStorage.setItem('currentUser', JSON.stringify({ name, email }));
-    window.location.href = "dashboard.html";
-  }
-});
-
-// SIGN-UP FORM
-document.getElementById('signup-form')?.addEventListener('submit', function (e) {
+document.getElementById('signup-form')?.addEventListener('submit', async function (e) {
   e.preventDefault();
 
   const name = document.getElementById('name').value;
   const email = document.getElementById('email').value;
   const password = document.getElementById('password').value;
 
-  if (name && email && password) {
-    localStorage.setItem('registeredUser', JSON.stringify({ name, email, password }));
-    alert(`Account created for ${name}!`);
-    window.location.href = "login.html";
+  if (!name || !email || !password) {
+    alert('Please fill out all fields.');
+    return;
+  }
+
+  try {
+    const response = await fetch(`${BACKEND_URL}/api/auth/register`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        username: name,
+        email: email,
+        password: password,
+      }),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message);
+    }
+
+    alert('Account created successfully! Please log in.');
+    window.location.href = 'login.html';
+  } catch (error) {
+    console.error('Signup Error:', error);
+    alert(`Signup failed: ${error.message}`);
   }
 });
 
 
+document.getElementById('login-form')?.addEventListener('submit', async function (e) {
+  e.preventDefault();
 
-let currentUser = null; 
+  const email = document.getElementById('email').value;
+  const password = document.getElementById('password').value;
 
-  const loginBtn = document.getElementById('login-btn');
-  const signInBtn = document.getElementById('sign-in-btn');
-  const logoutBtn = document.getElementById('logout-btn');
-  const welcomeMsg = document.getElementById('welcome-msg');
-
-  function updateUI() {
-    if (currentUser) {
-      loginBtn.style.display = 'none';
-      signInBtn.style.display = 'none';
-      logoutBtn.style.display = 'inline-block';
-      welcomeMsg.textContent = `Hello, ${currentUser.name}!`;
-    } else {
-      loginBtn.style.display = 'inline-block';
-      signInBtn.style.display = 'inline-block';
-      logoutBtn.style.display = 'none';
-      welcomeMsg.textContent = 'Hello!';
-    }
+  if (!email || !password) {
+    alert('Please provide email and password.');
+    return;
   }
 
-  loginBtn.addEventListener('click', () => {
-    currentUser = { name: 'Lisa' }; 
-    updateUI();
-  });
+  try {
+    const response = await fetch(`${BACKEND_URL}/api/auth/login`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email: email,
+        password: password,
+      }),
+    });
 
-  signInBtn.addEventListener('click', () => {
-    currentUser = { name: 'John' };
-    updateUI();
-  });
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message);
+    }
 
-  logoutBtn.addEventListener('click', () => {
-    currentUser = null;
-    updateUI();
-  });
+    const data = await response.json();
 
-  updateUI();
+    localStorage.setItem('authToken', data.token);
+    window.location.href = 'index.html';
 
+  } catch (error) {
+    console.error('Login Error:', error);
+    alert(`Login failed: ${error.message}`);
+  }
+});
