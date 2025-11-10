@@ -1,13 +1,8 @@
 const BACKEND_URL = 'https://mood-tracking-app-kappa.vercel.app';
 
-// This is a global variable for our chart
 let moodChart;
 
-// --- 2. PAGE LOAD ("DOMContentLoaded") ---
-// This runs as soon as the HTML page is loaded
 document.addEventListener('DOMContentLoaded', () => {
-  // Check if we are on the main dashboard page
-  // We use `window.location.pathname` to see which HTML file is loaded
   if (
     window.location.pathname.endsWith('index.html') ||
     window.location.pathname.endsWith('/')
@@ -34,29 +29,21 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
-// --- 3. MAIN DATA LOADING FUNCTION ---
 async function loadDashboard() {
   const token = localStorage.getItem('authToken');
 
-  // **PAGE PROTECTION**
-  // If there is no token, the user is not logged in.
-  // Redirect them to the login page immediately.
   if (!token) {
     window.location.href = 'login.html';
     return;
   }
 
-  // We have a token. Let's try to fetch user and dashboard data.
   try {
-    // We'll run two requests in parallel for speed
     const [userResponse, dashboardResponse] = await Promise.all([
-      // Request 1: Get the user's info (for "Hello, [Name]")
       fetch(`${BACKEND_URL}/api/users/me`, {
         headers: {
           'Authorization': `Bearer ${token}`,
         },
       }),
-      // Request 2: Get the dashboard summary (for charts, averages, etc.)
       fetch(`${BACKEND_URL}/api/dashboard/summary`, {
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -64,10 +51,8 @@ async function loadDashboard() {
       }),
     ]);
 
-    // Handle expired or bad token
     if (!userResponse.ok || !dashboardResponse.ok) {
       if (userResponse.status === 401 || dashboardResponse.status === 401) {
-        // 401 means "Unauthorized". The token is bad or expired.
         alert('Your session has expired. Please log in again.');
         localStorage.removeItem('authToken');
         window.location.href = 'login.html';
@@ -95,60 +80,34 @@ function updateDashboardUI(user, data) {
 
   document.getElementById('login-btn').style.display = 'none';
   document.getElementById('sign-in-btn').style.display = 'none';
-  document.getElementById('logout-btn').style.display = 'inline-block';
+  document.querySelectorAll('#logout-btn').forEach(btn => {
+    btn.style.display = 'inline-block';
+  });
+
 
   updateDate();
 
-  if (data.latestReflection) {
-    document.getElementById('reflection-mood').textContent = `I'm feeling... ${data.latestReflection.mood}`;
-    document.getElementById('reflection-sleep').textContent = `${data.latestReflection.sleepHours} hours`;
-    document.getElementById('reflection-notes').textContent = data.latestReflection.notes;
-    
-    const tagsContainer = document.getElementById('reflection-tags-container');
-    tagsContainer.innerHTML = '';
-    
-    if (data.latestReflection.tags && data.latestReflection.tags.length > 0) {
-      data.latestReflection.tags.forEach(tag => {
-        const tagElement = document.createElement('span');
-        tagElement.className = 'tag';
-        tagElement.textContent = tag;
-        tagsContainer.appendChild(tagElement);
-      });
-    } else {
-      tagsContainer.innerHTML = '<span class="tag-placeholder">No tags added.</span>';
-    }
-
-  } else {
-    document.getElementById('reflection-mood').textContent = 'Log your first mood!';
-    document.getElementById('reflection-sleep').textContent = '... hours';
-    document.getElementById('reflection-notes').textContent = 'Log a mood to see your daily reflection.';
-  }
-
-  const avgMoodMain = document.getElementById('avg-mood-main');
-  const avgMoodSub = document.getElementById('avg-mood-sub');
-  const avgSleepMain = document.getElementById('avg-sleep-main');
-  const avgSleepSub = document.getElementById('avg-sleep-sub');
+  const avgMoodCard = document.querySelector('.left-panel .stat-box:nth-child(1) .stat-card');
+  const avgSleepCard = document.querySelector('.left-panel .stat-box:nth-child(2) .stat-card');
 
   if (data.averages.avgMood !== 'N/A') {
-    avgMoodMain.textContent = data.averages.avgMood;
-    avgMoodSub.textContent = 'Your average mood from the last 5 logs.';
+    avgMoodCard.querySelector('.main-text').textContent = data.averages.avgMood;
+    avgMoodCard.querySelector('.sub-text').textContent = 'Your average mood from the last 5 logs.';
   } else {
-    avgMoodMain.textContent = 'Keep tracking!';
-    avgMoodSub.textContent = 'Log 5 check-ins to see your average mood.';
+    avgMoodCard.querySelector('.main-text').textContent = 'Keep tracking!';
+    avgMoodCard.querySelector('.sub-text').textContent = 'Log 5 check-ins to see your average mood.';
   }
 
   if (data.averages.avgSleep !== 'N/A') {
-    avgSleepMain.textContent = data.averages.avgSleep;
-    avgSleepSub.textContent = 'Your average sleep from the last 5 logs.';
+    avgSleepCard.querySelector('.main-text').textContent = data.averages.avgSleep;
+    avgSleepCard.querySelector('.sub-text').textContent = 'Your average sleep from the last 5 logs.';
   } else {
-    avgSleepMain.textContent = 'Not enough data yet!';
-    avgSleepSub.textContent = 'Track 5 nights to view average sleep.';
+    avgSleepCard.querySelector('.main-text').textContent = 'Not enough data yet!';
+    avgSleepCard.querySelector('.sub-text').textContent = 'Track 5 nights to view average sleep.';
   }
-
 
   initializeChart(data.trends);
 }
-
 
 function updateDate() {
   const dateElement = document.getElementById('current-date');

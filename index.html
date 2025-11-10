@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,20 +7,17 @@
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="css/dashboard.css" />
 </head>
-
 <body>
   <header class="header">
     <div class="header-main">
       <div class="header-conteiner">
-        <a href="index.html"><img src="images/icons/Logo icon.png" alt="icon" class="logo-icon">
-          <h1 class="app-title">Mood Tracker</h1>
-        </a>
+        <a href="index.html"><img src="images/icons/Logo icon.png" alt="icon" class="logo-icon"> <h1 class="app-title">Mood Tracker</h1></a>
         <button id="logout-btn" class="btn-secondary">Logout</button>
       </div>
       <div id="auth-buttons" class="header-auth">
-        <a href="login.html"><button id="login-btn" class="btn-primary">Login</button></a>
-        <a href="signup.html"><button id="sign-in-btn" class="btn-primary">Sign In</button> </a>
-        <button id="logout-btn" class="btn-secondary" style="display:none;">Logout</button>
+          <a href="login.html"><button id="login-btn" class="btn-primary">Login</button></a>
+          <a href="signup.html"><button id="sign-in-btn" class="btn-primary">Sign In</button> </a>
+          <button id="logout-btn" class="btn-secondary" style="display:none;">Logout</button>
       </div>
     </div>
   </header>
@@ -34,106 +30,75 @@
       <button id="log-mood-btn" class="btn-primary">Log today's mood</button>
     </section>
 
-    <!-- === NEW SECTION ADDED === -->
-    <!-- This section holds the "latest reflection" data -->
-    <section class="reflection-section">
-      <div class="stat-card reflection-card">
-        <h3 id="reflection-mood">I'm feeling...</h3>
-      </div>
-      <div class="stat-card reflection-card">
-        <h3 id="reflection-sleep">... hours</h3>
-      </div>
-      <div class="stat-card reflection-card reflection-full-width">
-        <h3>Reflection of the day</h3>
-        <p id="reflection-notes">...</p>
-        <div id="reflection-tags-container" class="tags-container">
-          <!-- Tags will be dynamically added here by JS -->
-        </div>
-      </div>
-    </section>
-    <!-- === END OF NEW SECTION === -->
 
-
-    <section class="stats-and-chart">
-      <div class="left-panel">
-        <div class="stat-box">
-          <h3 class="stat-title">
-            Average Mood <span>(Last 5 Check-ins)</span>
-          </h3>
-          <div class="stat-card">
-            <!-- === IDs ADDED HERE === -->
-            <p id="avg-mood-main" class="main-text">Keep tracking!</p>
-            <p id="avg-mood-sub" class="sub-text">Log 5 check-ins to see your average mood.</p>
-          </div>
-        </div>
-
-        <div class="stat-box">
-          <h3 class="stat-title">
-            Average Sleep <span>(Last 5 Check-ins)</span>
-          </h3>
-          <div class="stat-card">
-            <!-- === IDs ADDED HERE === -->
-            <p id="avg-sleep-main" class="main-text">Not enough data yet!</p>
-            <p id="avg-sleep-sub" class="sub-text">Track 5 nights to view average sleep.</p>
-          </div>
-        </div>
-      </div>
-
-
-      <div class="right-panel">
-        <h3 class="chart-title">Mood and sleep trends</h3>
-        <div class="chart-wrapper">
-          <canvas id="moodChart"></canvas>
-        </div>
-      </div>
-    </section>
-
-
-    <div id="mood-modal" class="modal hidden">
-      <div class="modal-content">
-        <button class="close-btn" id="close-mood">&times;</button>
-        <h2>Log your mood</h2>
-        <p>How was your mood today?</p>
-
-        <div class="mood-options">
-          <label>
-            <input type="radio" name="mood" value="very-happy"> <!-- VALUE CHANGED -->
-            <span class="mood-label">Very Happy <img src="images/icons/icon-very-happy-color.svg" alt="happy"
-                class="mood-icones"></span>
-          </label>
-          <label>
-            <input type="radio" name="mood" value="happy"> <!-- VALUE CHANGED -->
-            <span class="mood-label">Happy <img src="images/icons/icon-happy-color.svg" alt="happy"
-                class="mood-icones"></span>
-          </label>
-          <label>
-            <input type="radio" name="mood" value="neutral"> <!-- VALUE CHANGED -->
-            <span class="mood-label">Neutral <img src="images/icons/icon-neutral-color.svg" alt="happy"
-                class="mood-icones"></span>
-          </label>
-          <label>
-            <input type="radio" name="mood" value="sad"> <!-- VALUE CHANGED -->
-            <span class="mood-label">Sad <img src="images/icons/icon-sad-color.svg" alt="happy"
-                class="mood-icones"></span>
-          </label>
-          <label>
-            <input type="radio" name="mood" value="very-sad"> <!-- VALUE CHANGED -->
-            <span class="mood-label">Very Sad <img src="images/icons/icon-very-sad-color.svg" alt="happy"
-                class="mood-icones"></span>
-          </label>
-        </div>
-        <!-- 
-      NOTE: This modal is only Step 1.
-      Your friend will need to add the other steps (tags, notes, sleep)
-      and a "Submit" button.
-    -->
-        <button id="continue-btn" class="btn-primary">Continue</button>
+  <section class="stats-and-chart">
+  <div class="left-panel">
+    <div class="stat-box">
+      <h3 class="stat-title">
+        Average Mood <span>(Last 5 Check-ins)</span>
+      </h3>
+      <div class="stat-card">
+        <p class="main-text">Keep tracking!</p>
+        <p class="sub-text">Log 5 check-ins to see your average mood.</p>
       </div>
     </div>
 
+    <div class="stat-box">
+      <h3 class="stat-title">
+        Average Sleep <span>(Last 5 Check-ins)</span>
+      </h3>
+      <div class="stat-card">
+        <p class="main-text">Not enough data yet!</p>
+        <p class="sub-text">Track 5 nights to view average sleep.</p>
+      </div>
+    </div>
+  </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="js/mood.js"></script>
+
+  <div class="right-panel">
+  <h3 class="chart-title">Mood and sleep trends</h3>
+  <div class="chart-wrapper">
+    <canvas id="moodChart"></canvas>
+  </div>
+</div>
+</section>
+
+
+<div id="mood-modal" class="modal hidden">
+  <div class="modal-content">
+      <button class="close-btn" id="close-mood">&times;</button>
+    <h2>Log your mood</h2>
+    <p>How was your mood today?</p>
+
+    <div class="mood-options">
+      <label>
+        <input type="radio" name="mood" value="Very Happy">
+        <span class="mood-label">Very Happy <img src="images/icons/icon-very-happy-color.svg" alt="happy" class="mood-icones"></span>
+      </label>
+      <label>
+        <input type="radio" name="mood" value="Happy">
+        <span class="mood-label">Happy <img src="images/icons/icon-happy-color.svg" alt="happy" class="mood-icones"></span>
+      </label>
+      <label>
+        <input type="radio" name="mood" value="Neutral">
+        <span class="mood-label">Neutral <img src="images/icons/icon-neutral-color.svg" alt="happy" class="mood-icones"></span>
+      </label>
+      <label>
+        <input type="radio" name="mood" value="Sad">
+        <span class="mood-label">Sad <img src="images/icons/icon-sad-color.svg" alt="happy" class="mood-icones"></span>
+      </label>
+      <label>
+        <input type="radio" name="mood" value="Very Sad">
+        <span class="mood-label">Very Sad <img src="images/icons/icon-very-sad-color.svg" alt="happy" class="mood-icones"></span>
+      </label>
+    </div>
+
+    <button id="continue-btn" class="btn-primary">Continue</button>
+  </div>
+</div>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="js/mood.js"></script>
 </body>
-
 </html>
