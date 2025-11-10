@@ -1,4 +1,4 @@
-const BACKEND_URL = 'https://mood-tracking-app-kappa.vercel.app/';
+const BACKEND_URL = 'https://mood-tracking-app-kappa.vercel.app';
 
 // This is a global variable for our chart
 let moodChart;

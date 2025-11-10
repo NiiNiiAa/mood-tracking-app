@@ -1,4 +1,4 @@
-const BACKEND_URL = 'https://mood-tracking-app-kappa.vercel.app/';
+const BACKEND_URL = 'https://mood-tracking-app-kappa.vercel.app';
 
 document.getElementById('signup-form')?.addEventListener('submit', async function (e) {
   e.preventDefault();
