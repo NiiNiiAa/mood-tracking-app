@@ -11,14 +11,39 @@
   <header class="header">
     <div class="header-main">
       <div class="header-conteiner">
-        <a href="index.html"><img src="images/icons/Logo icon.png" alt="icon" class="logo-icon"> <h1 class="app-title">Mood Tracker</h1></a>
-        <button id="logout-btn" class="btn-secondary">Logout</button>
+      <a href="index.html" class="logo">
+        <img src="images/icons/Logo icon.png" alt="icon" class="logo-icon">
+        <h1 class="app-title">Mood Tracker</h1>
+      </a>      
+    </div>
+    <div id="auth-buttons" class="header-auth">
+      <div class="profile-menu" id="profile-menu">
+        <img src="images/icons/avatar-lisa.jpg" alt="Profile" class="profile-img" id="profile-img">
+        <span class="arrow">&#9662;</span>
       </div>
-      <div id="auth-buttons" class="header-auth">
-          <a href="login.html"><button id="login-btn" class="btn-primary">Login</button></a>
-          <a href="signup.html"><button id="sign-in-btn" class="btn-primary">Sign In</button> </a>
-          <button id="logout-btn" class="btn-secondary" style="display:none;">Logout</button>
+
+      <!-- <a href="login.html" class="login-signup"><button id="login-btn" class="btn-primary">Login</button></a>
+      <a href="signup.html"><button id="sign-in-btn" class="btn-primary">Sign In</button></a> -->
+
+      <div class="dropdown hidden" id="dropdown-menu">
+        <div class="profile-info">
+          <p class="user-name" id="user-name">Lisa</p>
+          <p class="user-email" id="user-email">lisa@example.com</p>
+          <div class="just-line"></div>
+        </div>
+
+        <div class="profile-dropdown">
+          <div id="settings-btn" class="btn-settings">
+            <img src="images/icons/icon-settings.svg" alt="settings" class="settings-icon">
+            Settings
+          </div>
+          <div id="logout-btn" class="btn-logout">
+            <img src="images/icons/icon-logout.svg" alt="logout" class="profile-arrow">
+            Logout
+          </div>
+        </div>
       </div>
+    </div>
     </div>
   </header>
 
@@ -32,44 +57,76 @@
 
 
   <section class="stats-and-chart">
-  <div class="left-panel">
-    <div class="stat-box">
-      <h3 class="stat-title">
-        Average Mood <span>(Last 5 Check-ins)</span>
-      </h3>
-      <div class="stat-card">
-        <p class="main-text">Keep tracking!</p>
-        <p class="sub-text">Log 5 check-ins to see your average mood.</p>
+    <div class="left-panel">
+      <div class="stat-box">
+        <h3 class="stat-title">
+          Average Mood <span>(Last 5 Check-ins)</span>
+        </h3>
+        <div class="stat-card"  id="avgMoodCard">
+          <p class="main-text">Keep tracking!</p>
+          <p class="sub-text">Log 5 check-ins to see your average mood.</p>
+        </div>
+      </div>
+
+      <div class="stat-box">
+        <h3 class="stat-title">
+          Average Sleep <span>(Last 5 Check-ins)</span>
+        </h3>
+        <div class="stat-card" id="avgSleepCard">
+          <p class="main-text">Not enough data yet!</p>
+          <p class="sub-text">Track 5 nights to view average sleep.</p>
+        </div>
       </div>
     </div>
 
-    <div class="stat-box">
-      <h3 class="stat-title">
-        Average Sleep <span>(Last 5 Check-ins)</span>
-      </h3>
-      <div class="stat-card">
-        <p class="main-text">Not enough data yet!</p>
-        <p class="sub-text">Track 5 nights to view average sleep.</p>
+    <div class="right-panel">
+      <h3 class="chart-title">Mood and sleep trends</h3>
+      <div class="chart-wrapper">
+          <div class="y-axis-labels">
+            <div class="y-label">
+              <img src="images/icons/icon-sleep.svg" alt="sleep" />
+              <span> 9+ hours</span>
+            </div>
+            <div class="y-label">
+              <img src="images/icons/icon-sleep.svg" alt="sleep" />
+              <span>7-8 hours</span>
+            </div>
+            <div class="y-label">
+              <img src="images/icons/icon-sleep.svg" alt="sleep" />
+              <span>5-6 hours</span>
+            </div>
+            <div class="y-label">
+              <img src="images/icons/icon-sleep.svg" alt="sleep" />
+              <span>3-4 hours</span>
+            </div>
+            <div class="y-label">
+              <img src="images/icons/icon-sleep.svg" alt="sleep" />
+              <span>0-2 hours</span>
+            </div>
+          </div>
+        <canvas id="moodChart1"></canvas>
+          <div class="x-axis-labels">
+
+          </div>
       </div>
     </div>
-  </div>
-
-
-  <div class="right-panel">
-  <h3 class="chart-title">Mood and sleep trends</h3>
-  <div class="chart-wrapper">
-    <canvas id="moodChart"></canvas>
-  </div>
-</div>
-</section>
+  </section>
 
 
 <div id="mood-modal" class="modal hidden">
   <div class="modal-content">
-      <button class="close-btn" id="close-mood">&times;</button>
-    <h2>Log your mood</h2>
-    <p>How was your mood today?</p>
+    <button class="close-btn" id="close-mood">&times;</button>
+    <h2 id="mood-step-title">Log your mood</h2>
 
+    <div class="progress-bar">
+      <div class="progress-step active"></div>
+      <div class="progress-step"></div>
+      <div class="progress-step"></div>
+      <div class="progress-step"></div>
+    </div>
+
+    <div class="mood-step step-1 active">
+      <p>How was your mood today?</p>
     <div class="mood-options">
       <label>
         <input type="radio" name="mood" value="Very Happy">
@@ -92,10 +149,56 @@
         <span class="mood-label">Very Sad <img src="images/icons/icon-very-sad-color.svg" alt="happy" class="mood-icones"></span>
       </label>
     </div>
+      <p id="mood-error" class="error-text hidden">Please select one option before continuing.</p>
+      <button id="continue-btn" class="btn-primary btn-continue">Continue</button>
+    </div>
+    
 
-    <button id="continue-btn" class="btn-primary">Continue</button>
+
+    <div class="mood-step step-2 hidden">
+      <p class="question-main">How did you feel?</p>
+      <p class="question-sub">Select up to three tags:</p>
+
+      <div class="tags-container" id="tags-container">
+       
+      </div>
+
+      <p id="tags-error" class="error-text hidden">You can select up to 3 tags only.</p>
+      <button id="continue-btn-2" class="btn-primary btn-continue">Continue</button>
+    </div>
+
+
+    <div class="mood-step step-3 hidden">
+      <p class="question-main">Write about your day...</p>
+
+      <textarea id="mood-text" maxlength="150" placeholder="Today, I felt…"></textarea>
+      <div style="display:flex;justify-content:flex-end;align-items:center;gap:10px;margin-top:6px;">
+        <div id="text-error" class="error-text hidden" style="margin-right:auto;"></div>
+        <div class="char-counter" id="char-counter">0/150</div>
+      </div>
+
+      <button id="continue-btn-3" class="btn-primary">Continue</button>
+    </div>
+
+
+    <div class="mood-step step-4 hidden">
+      <p class="question-main">How many hours did you sleep last night?</p>
+
+      <div class="sleep-options">
+        <label><input type="radio" name="sleep" value="9+ hours"><span>9+ hours</span></label>
+        <label><input type="radio" name="sleep" value="7-8 hours"><span>7-8 hours</span></label>
+        <label><input type="radio" name="sleep" value="5-6 hours"><span>5-6 hours</span></label>
+        <label><input type="radio" name="sleep" value="3-4 hours"><span>3-4 hours</span></label>
+        <label><input type="radio" name="sleep" value="0-2 hours"><span>0-2 hours</span></label>
+      </div>
+
+      <p id="sleep-error" class="error-text hidden">Please select one option before submitting.</p>
+
+      <button id="submit-btn" class="btn-primary btn-continue">Submit</button>
+    </div>
   </div>
 </div>
+
 
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

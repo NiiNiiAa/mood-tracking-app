@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Profile | Mood Tracker</title>
+  <link rel="stylesheet" href="css/profile.css" />
+  <style>
+    .error-message {
+      color: #d93025;
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      margin-top: 5px;
+    }
+    .error-message img {
+      width: 14px;
+      height: 14px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="logo">
+    <img src="images/icons/Logo icon.png" alt="Mood Tracker Logo">
+    <h1>Mood Tracker</h1>
+  </div>
+
+  <div class="profile-container">
+    <h2>Personalize Your Experience</h2>
+    <p class="profile-info">Add your name and a profile picture to make Mood yours.</p>
+
+    <label for="name">Name</label>
+    <input type="text" id="name" placeholder="Enter your name" />
+
+    <div class="upload-section">
+      <img src="images/icons/avatar-placeholder.svg" alt="Preview" id="preview-img">
+      <div class="valid-img">
+        <span class="upload-text">Upload Image</span>
+        <p class="upload-subtext">Min 400x400px, PNG or JPEG</p>
+        <button class="btn-upload" id="upload-btn">Upload</button>
+        <div id="error-message"></div>
+      </div>
+    </div>
+
+    <input type="file" id="image-upload" accept="image/png, image/jpeg" style="display:none;">
+    <div class="btn-border">
+        <button class="btn-start" id="start-tracking-btn">Start Tracking</button>
+    </div>
+  </div>
+
+  <script src="js/profile.js"></script>
+</body>
+</html>
+

@@ -18,7 +18,9 @@ body {
   align-items: center;
 }
 
-
+.login-signup{
+  display: none;
+}
 .app-title {
     font-weight: 600;
     color: black;
@@ -33,9 +35,113 @@ body {
 }
 .header-auth{
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  position: relative;
   align-items: center;
   gap: 15px;
+}
+.profile-menu {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+.profile-info {
+  text-align: start;
+  width: 180px;
+}
+.user-name {
+  font-weight: 600;
+  margin: 0;
+  font-size: 16px;
+}
+
+.user-email {
+  font-size: 12px;
+  color: #777;
+  margin: 5px 0 15px 0;
+}
+.profile-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.arrow {
+  font-size: 18px;
+  color: #333;
+}
+
+.dropdown {
+  position: absolute;
+  top: 60px;
+  right: 0;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  z-index: 100;
+}
+
+.dropdown hr {
+  width: 100%;
+  border: none;
+  border-top: 1px solid #eee;
+  margin: 10px 0;
+}
+.btn-settings, .btn-logout {
+  border: none;
+  padding: 8px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  text-align: left;
+  transition: background 0.2s;
+  position: relative;
+  right: 50px;
+}
+.btn-settings:hover .btn-logout:hover {
+  background-color: #c29898;
+}
+.just-line{
+  height: 1.5px;
+  background-color: #6767c32f;
+  margin: 10px 0;
+}
+.dropdown-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+.dropdown.hidden {
+  display: none;
+
+}
+.settings-icon {
+  width: 16px;
+  height: 16px;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+.profile-dropdown{
+  display: grid;
+  justify-content: center;
+  gap: 10px;
+}
+.profile-arrow {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 8px;
+  vertical-align: middle;
 }
 .dashboard {
   width: 80%;
@@ -62,6 +168,15 @@ body {
   font-family:serif;
   margin: 2px;
 }
+.question-main{
+  font-weight: 700;
+  font-size: 25px;
+}
+.question-sub{
+  font-size: 16px;
+  margin-bottom: 25px;
+  margin-top: -15px;
+}
 
 .current-date {
   font-size: 1rem;
@@ -70,23 +185,36 @@ body {
   margin-bottom: 20px;
 }
 
+
+
+
+
+
 .stats-and-chart {
   display: flex;
   justify-content: space-between;
-  gap: 28px;
-  width: 80%;
+  gap: 40px;
+  width: 100%;
   margin: 50px auto;
+  border-radius: 14px;
 }
 
-/* მარცხენა პანელი */
+/* მარცხენა  */
 .left-panel {
   width: 30%;
+  /* max-width: 30%; */
+  height: 400px;
   display: flex;
   flex-direction: column;
   /* justify-content: space-between; */
   text-align: center;
   background-color: white;
   padding: 10px;
+  margin: auto;
+  border-radius: 14px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  align-items: flex-start; 
+
 }
 
 .stat-box {
@@ -109,14 +237,6 @@ body {
   font-weight: 400;
 }
 
-.stat-card {
-  background: #f7f7f8;
-  border-radius: 14px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  width: 80%;
-  padding: 32px 24px;
-  text-align: center;
-}
 
 .main-text {
   font-weight: 700;
@@ -131,7 +251,7 @@ body {
   line-height: 1.4;
 }
 
-/* გრაფიკი */
+/* გრაფიკის მხარე*/
 .right-panel {
   flex: 1;
   background: #ffffff;
@@ -139,6 +259,7 @@ body {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   padding: 24px 28px;
   display: flex;
+  height: 372px;
   flex-direction: column;
 }
 
@@ -150,10 +271,21 @@ body {
 }
 
 .chart-wrapper {
-  display: flex;
-  align-items: stretch;
-  height: 100%;
-  gap: 10px;
+  display: grid;
+  align-items: flex-start;
+  justify-content: space-between;
+  position: relative;
+  pointer-events: none;
+  width: 100%;
+  /* height: 350px; */
+  padding-top: 30px;
+  padding-left: 80px;
+  /* gap: 10px; */
+}
+#mooodChart1 {
+  width: 80% !important;
+  height: 100% !important;
+  display: block;
 }
 
 .y-axis-labels {
@@ -162,8 +294,23 @@ body {
   justify-content: space-between;
   color: #44446e;
   font-size: 0.9rem;
+  position: absolute;
+  left: 12px;
+  top: 30px;
+  bottom: 10px;
+  pointer-events: none;
+  width: 90px;
+  box-sizing: border-box;
+  color: #44446e;
+  font-size: 0.7rem;
+  max-height: 200px;
 }
-
+.y-axis-labels .item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.y-axis-labels img { width: 18px; height: 18px; }
 .y-label {
   display: flex;
   align-items: center;
@@ -175,6 +322,24 @@ body {
   height: 16px;
   opacity: 0.8;
 }
+.x-axis-labels {
+  display: flex;
+  justify-content: space-between;
+  width: 90%;
+  margin-top: 10px;
+  font-size: 0.75rem;
+  color: #44446e;
+  pointer-events: none;
+  padding-left: 30px;
+  text-align: center;
+}
+
+.x-axis-labels .item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  white-space: nowrap;
+}
 
 #moodChart {
   flex: 1;
@@ -182,16 +347,7 @@ body {
   border-radius: 8px;
 }
 
-@media (max-width: 900px) {
-  .stats-and-chart {
-    flex-direction: column;
-    width: 95%;
-  }
-  .left-panel, .right-panel {
-    width: 100%;
-    height: auto;
-  }
-}
+
 
 
 
@@ -199,8 +355,8 @@ body {
 .btn-secondary {
   padding: 0.8rem 1.2rem;
   border: none;
-  border-radius: 0.8rem;
   cursor: pointer;
+  border: none;
   font-size: 1rem;
   transition: 0.2s;
 }
@@ -255,7 +411,9 @@ canvas {
   justify-content: center;
   align-items: center;
   position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
   inset: 0;
+  z-index: 999;
   background: rgba(0,0,0,0.3);
   font-family: Arial, sans-serif;
 }
@@ -267,18 +425,18 @@ canvas {
 .modal-content {
   background: #fff;
   padding: 25px 30px;
-  border-radius: 12px;
-  width: 320px;
+  border-radius: 16px;
+  width: 350px;
   text-align: center;
   position: relative;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  /* box-shadow: 0 10px 25px rgba(0,0,0,0.1); */
 }
 
 .close-btn {
   position: absolute;
   right: 15px;
   top: 10px;
-  background: transparent;
+  background: none;
   border: none;
   font-size: 22px;
   cursor: pointer;
@@ -296,20 +454,119 @@ canvas {
 .mood-options {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+}
+.step-2{
+  text-align: start;
+}
+
+.progress-bar {
+  display: flex;
+  justify-content: space-between;
+  margin: 15px 0 25px;
+  height: 3px;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.progress-step {
+  flex: 1;
+  margin: 0 2px;
+  background: #e1e1e1;
+  border-radius: 3px;
+}
+
+.progress-step.active {
+  background: #007bff;
+}
+
+.mood-options label,
+.sleep-options label {
+  display: flex;
+  text-align: left;
+  margin: 8px 0;
+  cursor: pointer;
+  vertical-align: middle;
+  gap: 3px;
+}
+
+.tags-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: flex-start;
+  margin: 15px 0;
+}
+
+.tag-option {
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 6px 12px;
+  cursor: pointer;
+  background: #f9f9f9;
+}
+
+.tag-option.selected {
+  background: #007bff;
+  color: #fff;
+  border-color: #007bff;
+}
+
+textarea {
+  width: 100%;
+  min-height: 100px;
+  resize: none;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 10px;
+  font-size: 0.95rem;
+  box-sizing: border-box;
+}
+
+.char-counter {
+  text-align: right;
+  font-size: 0.85rem;
+  color: #666;
+  margin-top: 5px;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  padding: 10px 30px;
+  font-size: 1rem;
+  margin-top: 15px;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  background-color: #0069d9;
+}
+.btn-continue{
+  width: 350px;
+  border-radius: 5px;
+  background-color: #4865DB;
+
+}
+.error-text {
+  color: red;
+  font-size: 0.85rem;
+  margin-top: 10px;
 }
 
 
 .mood-options label {
   display: flex;
   align-items: center;
-  padding: 10px 14px;
+  padding: 8px 8px;
   border: 1px solid #d1d5db;
   border-radius: 8px;
   cursor: pointer;
   position: relative;
-  gap: 10px;
+  gap: 3px;
 }
+
 
 .mood-options input[type="radio"] {
   appearance: none;
@@ -373,4 +630,47 @@ canvas {
 .mood-options label:hover {
   border-color: #4f46e5;
 }
+.chart-wrapper {
+  width: 90%;
+  /* height: 220px; */
+  position: relative;
+}
+canvas#moodChart1, 
+canvas#moodChart {
+  width: 100% !important;
+  height: 100% !important;
+}
 
+
+
+
+
+
+@media (max-width: 900px) {
+  .stats-and-chart {
+    flex-direction: column;
+    width: 95%;
+  }
+  .right-panel{
+    padding-bottom: 80px;
+  }
+  .left-panel,
+  .right-panel {
+    width: 100%;
+    height: auto;
+  }
+}
+
+@media (max-width: 500px) {
+  .modal-content {
+    width: 95%;
+    padding: 20px;
+  }
+  .tag-option {
+    padding: 5px 10px;
+    font-size: 0.85rem;
+  }
+  textarea {
+    min-height: 80px;
+  }
+}
